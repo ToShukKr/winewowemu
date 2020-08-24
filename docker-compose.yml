@@ -1,0 +1,21 @@
+version: "3.0"
+
+services:
+  wowemu:
+    tty: true
+    # entrypoint: /bin/sh
+    build:
+      context: .
+    container_name: wowemu
+    restart: unless-stopped
+    ports:
+      - "3724:3724"
+      - "8085:8085"
+      - "8080:8080"
+    volumes:
+       - ./wowemu:/app
+    environment:
+      - REALM_NAME=${REALM_NAME:-WineWoW}
+      - SERVER_IP=${SERVER_IP:-192.168.0.223}
+    env_file:
+      - .env
